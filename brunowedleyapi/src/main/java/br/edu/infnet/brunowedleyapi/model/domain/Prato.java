@@ -22,6 +22,6 @@ public class Prato {
 		System.out.println("Adicionais: " + (adicionais > 0 ? adicionais : 0));
 		System.out.println("Vegano? " + (vegano ? "sim" : "não"));
 		System.out.println("Preço: " + calcularPreco());
-}
+	}
 }
 
