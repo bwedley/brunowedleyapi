@@ -33,28 +33,28 @@ public class BrunowedleyapiApplication {
 				Prato pratoUm = new Prato();
 				
 				System.out.print("Informe o nome do prato: ");
-				pratoUm.nome = in.nextLine();
+				pratoUm.setNome(in.nextLine());
 				
 				System.out.print("Informe a descrição do prato: ");
-				pratoUm.descricao = in.nextLine();
+				pratoUm.setDescricao(in.nextLine());
 				
 				System.out.print("O prato é vegano? (sim/não) ");
 				String resposta = in.nextLine();
 				
 				if(resposta.equalsIgnoreCase("sim")) {
-					pratoUm.vegano = true;
+					pratoUm.setVegano(true);
 				} else {
-					pratoUm.vegano = false;
+					pratoUm.setVegano(false);
 				}
 				
 				System.out.print("O prato vai possuir adicionais? ");
 				String temAdicionais = in.nextLine();
 				if(temAdicionais.equalsIgnoreCase("sim")) {
 					System.out.print("Quantos? ");
-					pratoUm.adicionais = in.nextInt();
-					
+					pratoUm.setAdicionais(in.nextInt());
+					in.nextLine();
 				} else {
-					pratoUm.adicionais = 0;
+					pratoUm.setAdicionais(0);
 				}
 				
 				System.out.print("Informe o preço base do prato: ");
@@ -62,7 +62,7 @@ public class BrunowedleyapiApplication {
 					System.out.println("Digite um valor válido!");
 					in.next();
 				}
-				pratoUm.precoBase = in.nextDouble();			
+				pratoUm.setPrecoBase(in.nextDouble());			
 				
 				pratoUm.imprimirPrato();
 				break;
