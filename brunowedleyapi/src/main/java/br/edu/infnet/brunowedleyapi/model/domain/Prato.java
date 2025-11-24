@@ -93,5 +93,15 @@ public class Prato {
 	public void setPrecoBase(double precoBase) {
 		this.precoBase = precoBase;
 	}
+	
+	public String toString() {
+		return "--- Prato ---" +
+		       "\nNome: " + nome +
+		       "\nDescrição: " + descricao +
+		       "\nCategoria: " + categoria +
+		       "\nVegano: " + (vegano ? "Sim" : "Não") +
+		       "\nAdicionais: " + adicionais +
+		       "\nPreço final: R$ " + calcularPreco();
+	}
 }
 

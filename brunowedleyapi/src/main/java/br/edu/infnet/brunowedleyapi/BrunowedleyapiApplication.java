@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
+import br.edu.infnet.brunowedleyapi.model.domain.Pedido;
 import br.edu.infnet.brunowedleyapi.model.domain.Prato;
 
 @SpringBootApplication
@@ -16,13 +16,15 @@ public class BrunowedleyapiApplication {
 		
 		Scanner in = new Scanner(System.in);
 		
+		Pedido pedido = new Pedido();
+		
 		int opcao = 0;
 		
 		System.out.println("Iniciando cadastro...");
 		
 		do {
 			System.out.println("1 - Cadastrar prato");
-			System.out.println("2 - Outro");
+			System.out.println("2 - Mostrar pedido");
 			System.out.println("0 - Sair");
 			System.out.println("Escolha a opção: ");
 			opcao = in.nextInt();
@@ -47,7 +49,7 @@ public class BrunowedleyapiApplication {
 					pratoUm.setVegano(false);
 				}
 				
-				System.out.print("O prato vai possuir adicionais? ");
+				System.out.print("O prato vai possuir adicionais? (sim/não) ");
 				String temAdicionais = in.nextLine();
 				if(temAdicionais.equalsIgnoreCase("sim")) {
 					System.out.print("Quantos? ");
@@ -65,10 +67,12 @@ public class BrunowedleyapiApplication {
 				pratoUm.setPrecoBase(in.nextDouble());			
 				
 				pratoUm.imprimirPrato();
+				pedido.adicionarPrato(pratoUm);
+				System.out.println("Prato adicionado!");
 				break;
 				
 			case 2:
-				System.out.println("Feature em construção!");
+				pedido.mostrarPedido();
 				break;
 			case 0:
 				System.out.println("Saindo...");
@@ -76,7 +80,6 @@ public class BrunowedleyapiApplication {
 			}
 		} while (opcao != 0);
 		System.out.println("Finalizando aplicação...");
-		
 		
 		in.close();
 		
