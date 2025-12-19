@@ -1,50 +1,33 @@
 package br.edu.infnet.brunowedleyapi.model.domain;
 
-public class Prato {
-	private String nome;
-	private double precoBase;
-	private String descricao;
+import java.util.Scanner;
+
+public class Prato extends ProdutoCardapio{
+
 	private boolean vegano;
 	private int adicionais;
-	private Categoria categoria; 
-	
+	private Categoria categoria;
 	
 	public Prato(String nome, double precoBase, String descricao, boolean vegano, int adicionais, Categoria categoria) {
-		this.setNome(nome);
-		this.setPrecoBase(precoBase);
-		this.setDescricao(descricao);
+		super(nome, precoBase, descricao, categoria);
 		this.setVegano(vegano);
 		this.setAdicionais(adicionais);
-		this.setCategoria(categoria);
-	}
-	
-	public Prato() {
 		
 	}
+		
+	public Prato() {
+		this("Prato exemplo", 99.00, "descrição exemplo", false, 2, Categoria.SOBREMESA);
+	}
 	
-	private double calcularPreco() {
-		double precoFinal = getPrecoBase();
+	@Override
+	public double calcularPreco() {
+		double preco = getPrecoBase();
 		if(getAdicionais() > 0) {
-			precoFinal += getAdicionais() * 5;
+			preco += getAdicionais() * 5;
 		} 
-	return precoFinal;
+	return preco;
 	}
-	
-	public enum Categoria {
-		ENTRADA,
-		PRATO_PRINCIPAL,
-		BEBIDA,
-		SOBREMESA
-	}
-	
-	public void imprimirPrato() {
-		System.out.println("Prato cadastrado com sucesso!");
-		System.out.println("Prato: " + getNome());
-		System.out.println("Descrição: " + getDescricao());
-		System.out.println("Adicionais: " + (getAdicionais() > 0 ? getAdicionais() : 0));
-		System.out.println("Vegano? " + (isVegano() ? "sim" : "não"));
-		System.out.println("Preço: " + calcularPreco());
-	}
+		
 
 	public Categoria getCategoria() {
 		return categoria;
@@ -54,21 +37,7 @@ public class Prato {
 		this.categoria = categoria;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+	
 
 	public boolean isVegano() {
 		return vegano;
@@ -85,23 +54,62 @@ public class Prato {
 	public void setAdicionais(int adicionais) {
 		this.adicionais = adicionais;
 	}
-
-	public double getPrecoBase() {
-		return precoBase;
-	}
-
-	public void setPrecoBase(double precoBase) {
-		this.precoBase = precoBase;
+	
+	@Override
+	public void imprimirDetalhes(boolean completo) {
+		if(completo) {
+			System.out.println("=======PRATO=======!");
+			System.out.println("Prato: " + getNome());
+			System.out.println("Descrição: " + getDescricao());
+			System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
+			System.out.println("Vegano? " + (isVegano() ? "sim" : "não"));
+			System.out.println("Preço: " + calcularPreco());
+		} else {
+			super.imprimirDetalhes(false);
+		}
 	}
 	
-	public String toString() {
-		return "--- Prato ---" +
-		       "\nNome: " + nome +
-		       "\nDescrição: " + descricao +
-		       "\nCategoria: " + categoria +
-		       "\nVegano: " + (vegano ? "Sim" : "Não") +
-		       "\nAdicionais: " + adicionais +
-		       "\nPreço final: R$ " + calcularPreco();
+	public static Prato cadastrar(Scanner in) {
+		System.out.println("Nome do prato: ");
+		String nomePrato = in.nextLine();
+		
+		System.out.println("Descrição: ");
+		String descPrato = in.nextLine();
+				
+		
+		System.out.println("Preço: ");
+		double precoPrato = in.nextDouble();
+		in.nextLine();
+		
+		System.out.println("Vegano? (s/n)");
+		boolean vegano = in.nextLine().equalsIgnoreCase("s");
+		
+		System.out.println("Quantidade de adicionais: ");
+		int adicionais = in.nextInt();
+		
+		in.nextLine();
+		
+		System.out.println("Categoria do prato: ");
+		System.out.println("1 - Entrada");
+		System.out.println("2 - Prato Principal");
+		System.out.println("Opção: ");
+		int cat = in.nextInt();
+		in.nextLine();
+		
+		Categoria categoria = (cat == 1) ? Categoria.ENTRADA : Categoria.PRATO_PRINCIPAL;
+		return new Prato(nomePrato, precoPrato, descPrato, vegano, adicionais, categoria);
+	
 	}
+
+	
+//	public String toString() {
+//		return "--- Prato ---" +
+//		       "\nNome: " + getNome() +
+//		       "\nDescrição: " + getDescricao() +
+//		       "\nCategoria: " + categoria +
+//		       "\nVegano: " + (vegano ? "Sim" : "Não") +
+//		       "\nAcompanhamentos: " + adicionais +
+//		       "\nPreço final: R$ " + calcularPreco();
+//	}
 }
 

@@ -5,8 +5,10 @@ import java.util.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.edu.infnet.brunowedleyapi.model.domain.Bebida;
 import br.edu.infnet.brunowedleyapi.model.domain.Pedido;
 import br.edu.infnet.brunowedleyapi.model.domain.Prato;
+import br.edu.infnet.brunowedleyapi.model.domain.Sobremesa;
 
 @SpringBootApplication
 public class BrunowedleyapiApplication {
@@ -18,13 +20,14 @@ public class BrunowedleyapiApplication {
 		
 		Pedido pedido = new Pedido();
 		
-		int opcao = 0;
+		int opcao;
 		
 		System.out.println("Iniciando cadastro...");
 		
 		do {
-			System.out.println("1 - Cadastrar prato");
-			System.out.println("2 - Mostrar pedido");
+			System.out.println("==== MENU PRINCIPAL ====");
+			System.out.println("1 - Cadastrar produto");
+			System.out.println("2 - Mostrar produtos");
 			System.out.println("0 - Sair");
 			System.out.println("Escolha a opção: ");
 			opcao = in.nextInt();
@@ -32,56 +35,52 @@ public class BrunowedleyapiApplication {
 			
 			switch(opcao) {
 			case 1: 
-				Prato pratoUm = new Prato();
+				int tipo;
 				
-				System.out.print("Informe o nome do prato: ");
-				pratoUm.setNome(in.nextLine());
-				
-				System.out.print("Informe a descrição do prato: ");
-				pratoUm.setDescricao(in.nextLine());
-				
-				System.out.print("O prato é vegano? (sim/não) ");
-				String resposta = in.nextLine();
-				
-				if(resposta.equalsIgnoreCase("sim")) {
-					pratoUm.setVegano(true);
-				} else {
-					pratoUm.setVegano(false);
-				}
-				
-				System.out.print("O prato vai possuir adicionais? (sim/não) ");
-				String temAdicionais = in.nextLine();
-				if(temAdicionais.equalsIgnoreCase("sim")) {
-					System.out.print("Quantos? ");
-					pratoUm.setAdicionais(in.nextInt());
+				do {
+					System.out.println("==== Escolha o tipo de produto: ====");
+					System.out.println("1 - Cadastrar Prato");
+					System.out.println("2 - Cadastrar Bebida");
+					System.out.println("3 - Cadastrar Sobremesa");
+					System.out.println("0 - Voltar");
+					System.out.println("Escolha a opção: ");
+					
+					tipo = in.nextInt();
 					in.nextLine();
-				} else {
-					pratoUm.setAdicionais(0);
-				}
-				
-				System.out.print("Informe o preço base do prato: ");
-				if(!in.hasNextDouble()) {
-					System.out.println("Digite um valor válido!");
-					in.next();
-				}
-				pratoUm.setPrecoBase(in.nextDouble());			
-				
-				pratoUm.imprimirPrato();
-				pedido.adicionarPrato(pratoUm);
-				System.out.println("Prato adicionado!");
-				break;
+					
+					switch(tipo) {
+					case 1:
+						pedido.adicionarProduto(Prato.cadastrar(in));
+						System.out.println("Prato adicionado");
+						break;
+						
+					case 2:
+						pedido.adicionarProduto(Bebida.cadastrar(in));
+						System.out.println("Bebida adicionada");
+						break;
+						
+					case 3:
+						pedido.adicionarProduto(Sobremesa.cadastrar(in));
+						System.out.println("Sobremesa Adicionada");
+						break;
+						
+					case 0:
+						System.out.println("Voltando ao menu principal...");
+						break;
+					default:
+						System.out.println("Opção inválida! Tente novamente.");
+						break;
+					}
+				} while (tipo != 0);
 				
 			case 2:
 				pedido.mostrarPedido();
 				break;
 			case 0:
-				System.out.println("Saindo...");
+				System.out.println("Finalizando aplicação...");
 				break;
-			}
+			}	
 		} while (opcao != 0);
-		System.out.println("Finalizando aplicação...");
-		
 		in.close();
-		
 	}
 }

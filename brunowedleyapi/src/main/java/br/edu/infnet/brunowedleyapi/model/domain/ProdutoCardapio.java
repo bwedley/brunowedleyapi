@@ -1,0 +1,85 @@
+package br.edu.infnet.brunowedleyapi.model.domain;
+
+public abstract class ProdutoCardapio {
+	
+	private String nome;
+	private double precoBase;
+	private String descricao;
+	private Categoria categoria;
+	
+	public ProdutoCardapio(String nome, double precoBase, String descricao, Categoria categoria) {
+		this.setNome(nome);
+		this.setPrecoBase(precoBase);
+		this.setDescricao(descricao);
+		this.setCategoria(categoria);
+	}
+	
+	public abstract double calcularPreco();
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	public double getPrecoBase() {
+		return precoBase;
+	}
+	public void setPrecoBase(double precoBase) {
+		if(precoBase < 0) {
+			throw new IllegalArgumentException("Preço não pode ser negativo");
+		}
+		this.precoBase = precoBase;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public enum Categoria {
+		ENTRADA,
+		PRATO_PRINCIPAL,
+		BEBIDA,
+		SOBREMESA
+	}
+	
+	public void imprimirDetalhes() {
+		System.out.println("Prato: " + getNome());
+		System.out.println("Preço: " + calcularPreco());
+	}
+	
+	public void imprimirDetalhes(boolean completo) {
+		if(completo) {
+			System.out.println("=======PRODUTO=======");
+			System.out.println("Prato: " + getNome());
+			System.out.println("Descrição: " + getDescricao());
+//		System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
+//		System.out.println("Vegano? " + (isVegano() ? "sim" : "não"));
+			System.out.println("Preço: " + calcularPreco());
+			
+		} else {
+			imprimirDetalhes();
+		}
+		
+		
+	}
+	
+	public String toString() {
+		return "=======" + categoria + "=======" +
+				"\nNome: " + nome + "\nDescrição: " + descricao +
+				"\nPreco: " + calcularPreco();
+	}
+}
