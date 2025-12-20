@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.edu.infnet.brunowedleyapi.model.domain.Bebida;
-import br.edu.infnet.brunowedleyapi.model.domain.Pedido;
+import br.edu.infnet.brunowedleyapi.model.domain.Cardapio;
 import br.edu.infnet.brunowedleyapi.model.domain.Prato;
 import br.edu.infnet.brunowedleyapi.model.domain.Sobremesa;
 
@@ -18,7 +18,7 @@ public class BrunowedleyapiApplication {
 		
 		Scanner in = new Scanner(System.in);
 		
-		Pedido pedido = new Pedido();
+		Cardapio cardapio = new Cardapio();
 		
 		int opcao;
 		
@@ -50,17 +50,17 @@ public class BrunowedleyapiApplication {
 					
 					switch(tipo) {
 					case 1:
-						pedido.adicionarProduto(Prato.cadastrar(in));
+						cardapio.adicionarProduto(Prato.cadastrar(in));
 						System.out.println("Prato adicionado");
 						break;
 						
 					case 2:
-						pedido.adicionarProduto(Bebida.cadastrar(in));
+						cardapio.adicionarProduto(Bebida.cadastrar(in));
 						System.out.println("Bebida adicionada");
 						break;
 						
 					case 3:
-						pedido.adicionarProduto(Sobremesa.cadastrar(in));
+						cardapio.adicionarProduto(Sobremesa.cadastrar(in));
 						System.out.println("Sobremesa Adicionada");
 						break;
 						
@@ -72,9 +72,10 @@ public class BrunowedleyapiApplication {
 						break;
 					}
 				} while (tipo != 0);
+				break;
 				
 			case 2:
-				pedido.mostrarPedido();
+				cardapio.listarProdutosCategoria();
 				break;
 			case 0:
 				System.out.println("Finalizando aplicação...");

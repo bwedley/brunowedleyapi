@@ -72,7 +72,6 @@ public abstract class ProdutoCardapio {
 	
 	public void imprimirDetalhes(boolean completo) {
 		if(completo) {
-			System.out.println("=======PRODUTO=======");
 			System.out.println("Produto: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
 //		System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));

@@ -23,9 +23,10 @@ public class Prato extends ProdutoCardapio{
 	
 	@Override
 	public double calcularPreco() {
+		final double acompanhamento = 5.00;
 		double preco = getPrecoBase();
 		if(getAdicionais() > 0) {
-			preco += getAdicionais() * 5;
+			preco += getAdicionais() * acompanhamento;
 		} 
 	return preco;
 	}
@@ -60,7 +61,6 @@ public class Prato extends ProdutoCardapio{
 	@Override
 	public void imprimirDetalhes(boolean completo) {
 		if(completo) {
-			System.out.println("=======PRATO=======!");
 			System.out.println("Prato: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
 			System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
@@ -75,7 +75,18 @@ public class Prato extends ProdutoCardapio{
 		
 		String nomePrato = ValidacoesUtil.validarStringObrigatoria(in, "Nome do prato:");
 		String descPrato = ValidacoesUtil.validarStringObrigatoria(in, "Descrição: ");
-		double precoPrato = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+		
+		double precoPrato;
+		while(true) {
+			precoPrato = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+			try {
+				new Prato().setPrecoBase(precoPrato);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+		}
+		
 		boolean vegano = ValidacoesUtil.validarBoolean(in, "É vegano? ");
 		int adicionais = ValidacoesUtil.validarIntPositivo(in, "Quantidade de adicionais: ");
 		

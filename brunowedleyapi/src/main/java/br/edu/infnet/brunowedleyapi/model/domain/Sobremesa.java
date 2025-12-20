@@ -46,7 +46,17 @@ public class Sobremesa extends ProdutoCardapio{
 		
 		String nomeSobremesa = ValidacoesUtil.validarStringObrigatoria(in, "Nome do prato:");
 		String descSobremesa = ValidacoesUtil.validarStringObrigatoria(in, "Descrição: ");
-		double precoSobremesa = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+		
+		double precoSobremesa;
+		while(true) {
+			precoSobremesa = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+			try {
+				new Prato().setPrecoBase(precoSobremesa);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+		}
 		boolean diet = ValidacoesUtil.validarBoolean(in, "É diet? ");
 		
 		
@@ -57,7 +67,6 @@ public class Sobremesa extends ProdutoCardapio{
 	
 	public void imprimirDetalhes(boolean completo) {
 		if(completo) {
-			System.out.println("=======SOBREMESA=======");
 			System.out.println("Nome: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
 			System.out.println("Diet: " + (diet ? "Sim" : "Não"));

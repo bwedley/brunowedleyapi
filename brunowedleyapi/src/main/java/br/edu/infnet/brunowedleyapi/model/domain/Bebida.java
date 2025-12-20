@@ -38,7 +38,17 @@ public class Bebida extends ProdutoCardapio{
 		
 		String nomeBebida = ValidacoesUtil.validarStringObrigatoria(in, "Nome da bebida:");
 		String descBebida = ValidacoesUtil.validarStringObrigatoria(in, "Descrição: ");
-		double precoBebida = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+		
+		double precoBebida;
+		while(true) {
+			precoBebida = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+			try {
+				new Prato().setPrecoBase(precoBebida);
+				break;
+			} catch (IllegalArgumentException e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+		}
 		boolean alcoolica = ValidacoesUtil.validarBoolean(in, "É alcoólica? ");
 		
 		return new Bebida(nomeBebida, precoBebida, descBebida, alcoolica);
@@ -48,7 +58,6 @@ public class Bebida extends ProdutoCardapio{
 	@Override
 	public void imprimirDetalhes(boolean completo) {
 		if(completo) {
-			System.out.println("=======BEBIDA=======");
 			System.out.println("Nome: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
 			System.out.println("Alcoólica: " + (alcoolica ? "Sim" : "Não"));
