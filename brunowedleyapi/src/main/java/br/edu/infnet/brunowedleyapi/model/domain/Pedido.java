@@ -14,7 +14,7 @@ public class Pedido {
 	}
 	
 	public void mostrarPedido() {
-		System.out.println("-------Pedido-------");
+		System.out.println("-------Produtos-------");
 		for(ProdutoCardapio p : produtos) {
 			p.imprimirDetalhes(true);
 			System.out.println();

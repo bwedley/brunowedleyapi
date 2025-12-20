@@ -2,6 +2,8 @@ package br.edu.infnet.brunowedleyapi.model.domain;
 
 import java.util.Scanner;
 
+import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
+
 public class Prato extends ProdutoCardapio{
 
 	private boolean vegano;
@@ -70,33 +72,19 @@ public class Prato extends ProdutoCardapio{
 	}
 	
 	public static Prato cadastrar(Scanner in) {
-		System.out.println("Nome do prato: ");
-		String nomePrato = in.nextLine();
 		
-		System.out.println("Descrição: ");
-		String descPrato = in.nextLine();
-				
-		
-		System.out.println("Preço: ");
-		double precoPrato = in.nextDouble();
-		in.nextLine();
-		
-		System.out.println("Vegano? (s/n)");
-		boolean vegano = in.nextLine().equalsIgnoreCase("s");
-		
-		System.out.println("Quantidade de adicionais: ");
-		int adicionais = in.nextInt();
-		
-		in.nextLine();
+		String nomePrato = ValidacoesUtil.validarStringObrigatoria(in, "Nome do prato:");
+		String descPrato = ValidacoesUtil.validarStringObrigatoria(in, "Descrição: ");
+		double precoPrato = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+		boolean vegano = ValidacoesUtil.validarBoolean(in, "É vegano? ");
+		int adicionais = ValidacoesUtil.validarIntPositivo(in, "Quantidade de adicionais: ");
 		
 		System.out.println("Categoria do prato: ");
 		System.out.println("1 - Entrada");
 		System.out.println("2 - Prato Principal");
-		System.out.println("Opção: ");
-		int cat = in.nextInt();
-		in.nextLine();
 		
-		Categoria categoria = (cat == 1) ? Categoria.ENTRADA : Categoria.PRATO_PRINCIPAL;
+		int opcaoCat = ValidacoesUtil.validarOpcao(in, "Opção", 1, 2);
+		Categoria categoria = (opcaoCat == 1) ? Categoria.ENTRADA : Categoria.PRATO_PRINCIPAL;
 		return new Prato(nomePrato, precoPrato, descPrato, vegano, adicionais, categoria);
 	
 	}

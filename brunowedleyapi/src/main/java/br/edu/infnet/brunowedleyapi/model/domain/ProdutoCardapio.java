@@ -21,7 +21,10 @@ public abstract class ProdutoCardapio {
 	}
 	
 	public void setNome(String nome) {
-		this.nome = nome;
+		if(nome == null || nome.trim().isEmpty()) {
+			throw new IllegalArgumentException("Nome do produto é obrigatório!");
+		}
+ 		this.nome = nome;
 	}
 	
 	public double getPrecoBase() {
@@ -38,6 +41,9 @@ public abstract class ProdutoCardapio {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
+		if(descricao == null || descricao.trim().isEmpty()) {
+			throw new IllegalArgumentException("Descrição do produto é obrigatória!");
+		}
 		this.descricao = descricao;
 	}
 	
@@ -46,6 +52,9 @@ public abstract class ProdutoCardapio {
 	}
 
 	public void setCategoria(Categoria categoria) {
+		if(categoria == null) {
+			throw new IllegalArgumentException("Categoria do produto é obrigatória!");
+		}
 		this.categoria = categoria;
 	}
 
@@ -57,14 +66,14 @@ public abstract class ProdutoCardapio {
 	}
 	
 	public void imprimirDetalhes() {
-		System.out.println("Prato: " + getNome());
+		System.out.println("Produto: " + getNome());
 		System.out.println("Preço: " + calcularPreco());
 	}
 	
 	public void imprimirDetalhes(boolean completo) {
 		if(completo) {
 			System.out.println("=======PRODUTO=======");
-			System.out.println("Prato: " + getNome());
+			System.out.println("Produto: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
 //		System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
 //		System.out.println("Vegano? " + (isVegano() ? "sim" : "não"));

@@ -2,6 +2,8 @@ package br.edu.infnet.brunowedleyapi.model.domain;
 
 import java.util.Scanner;
 
+import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
+
 public class Sobremesa extends ProdutoCardapio{
 	private boolean diet;
 
@@ -29,18 +31,24 @@ public class Sobremesa extends ProdutoCardapio{
 	}
 	
 	public static Sobremesa cadastrar(Scanner in) {
-		System.out.println("Nome da sobremesa: ");
-		String nomeSobremesa = in.nextLine();
+//		System.out.println("Nome da sobremesa: ");
+//		String nomeSobremesa = in.nextLine();
+//		
+//		System.out.println("Descrição: ");
+//		String descSobremesa = in.nextLine();
+//		
+//		System.out.println("Preço: ");
+//		double precoSobremesa = in.nextDouble();
+//		in.nextLine();
+//		
+//		System.out.println("Diet? (s/n)");
+//		boolean diet = in.nextLine().equalsIgnoreCase("s");
 		
-		System.out.println("Descrição: ");
-		String descSobremesa = in.nextLine();
+		String nomeSobremesa = ValidacoesUtil.validarStringObrigatoria(in, "Nome do prato:");
+		String descSobremesa = ValidacoesUtil.validarStringObrigatoria(in, "Descrição: ");
+		double precoSobremesa = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
+		boolean diet = ValidacoesUtil.validarBoolean(in, "É diet? ");
 		
-		System.out.println("Preço: ");
-		double precoSobremesa = in.nextDouble();
-		in.nextLine();
-		
-		System.out.println("Diet? (s/n)");
-		boolean diet = in.nextLine().equalsIgnoreCase("s");
 		
 		return new Sobremesa(nomeSobremesa, precoSobremesa, descSobremesa, diet);
 		
