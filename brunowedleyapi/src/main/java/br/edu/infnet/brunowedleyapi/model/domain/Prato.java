@@ -8,7 +8,6 @@ public class Prato extends ProdutoCardapio{
 
 	private boolean vegano;
 	private int adicionais;
-	private Categoria categoria;
 	
 	public Prato(String nome, double precoBase, String descricao, boolean vegano, int adicionais, Categoria categoria) {
 		super(nome, precoBase, descricao, categoria);
@@ -31,17 +30,6 @@ public class Prato extends ProdutoCardapio{
 	return preco;
 	}
 		
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	
-
 	public boolean isVegano() {
 		return vegano;
 	}
@@ -60,14 +48,10 @@ public class Prato extends ProdutoCardapio{
 	
 	@Override
 	public void imprimirDetalhes(boolean completo) {
+		super.imprimirDetalhes(completo);
 		if(completo) {
-			System.out.println("Prato: " + getNome());
-			System.out.println("Descrição: " + getDescricao());
 			System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
-			System.out.println("Vegano? " + (isVegano() ? "sim" : "não"));
-			System.out.println("Preço: " + calcularPreco());
-		} else {
-			super.imprimirDetalhes(false);
+			System.out.println("Vegano? " + (vegano ? "sim" : "não"));
 		}
 	}
 	
@@ -78,12 +62,12 @@ public class Prato extends ProdutoCardapio{
 		
 		double precoPrato;
 		while(true) {
-			precoPrato = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
 			try {
-				new Prato().setPrecoBase(precoPrato);
+				precoPrato = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
 				break;
 			} catch (IllegalArgumentException e) {
 				System.out.println("Erro: " + e.getMessage());
+				continue;
 			}
 		}
 		

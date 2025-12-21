@@ -3,6 +3,10 @@ package br.edu.infnet.brunowedleyapi.model.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import br.edu.infnet.brunowedleyapi.model.domain.ProdutoCardapio.Categoria;
+import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 
 public class Cardapio {
 	private List<ProdutoCardapio> produtos;
@@ -31,7 +35,47 @@ public class Cardapio {
 		}
 	}
 	
-	public void listarProdutosCategoria() {
+	public void listarProdutosPorCategoria(Scanner in) {
+		int opcaoCat;
+		
+		do {
+			System.out.println("Escolha a categoria que deseja exibir:");
+			System.out.println("1 - Entrada");
+			System.out.println("2 - Prato Principal");
+			System.out.println("3 - Bebida");
+			System.out.println("4 - Sobremesa");
+			System.out.println("0 - Voltar");
+			
+			opcaoCat = ValidacoesUtil.validarOpcao(in, "Opção", 0, 4);
+			
+			if(opcaoCat == 0) {
+				System.out.println("Voltando...");
+				break;
+			}
+			
+			Categoria categoriaEscolhida = Categoria.values()[opcaoCat - 1];
+			System.out.println("Produtos da categoria " + categoriaEscolhida + ": ");
+			
+			boolean verificaProdutoExistente = false;
+			
+			for(ProdutoCardapio produto : produtos) {
+				if(produto.getCategoria() == categoriaEscolhida) {
+					produto.imprimirDetalhes(true);
+					System.out.println("=====================");
+					verificaProdutoExistente = true;
+				}
+			}
+			
+			if (!verificaProdutoExistente) {
+				System.out.println("Nenhum produto encontrado.");
+			}
+			
+		} while(opcaoCat != 0);
+		
+		
+	}
+	
+	public void listarCategorias() {
 		if(produtos.isEmpty()) {
 			System.out.println("Nenhum produto cadastrado");
 			return;
@@ -51,5 +95,16 @@ public class Cardapio {
 				}
 			}
 		}
+	}
+	
+	public ProdutoCardapio listarProdutoPorId(int id) {
+		for(ProdutoCardapio produto : produtos) {
+			if(produto.getId() == id) {
+				produto.imprimirDetalhes(true);
+				return produto;
+			}
+		}
+		System.out.println("Id digitado não existente.");
+		return null;
 	}
 }

@@ -41,12 +41,12 @@ public class Bebida extends ProdutoCardapio{
 		
 		double precoBebida;
 		while(true) {
-			precoBebida = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
 			try {
-				new Prato().setPrecoBase(precoBebida);
+				precoBebida = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
 				break;
 			} catch (IllegalArgumentException e) {
 				System.out.println("Erro: " + e.getMessage());
+				continue;
 			}
 		}
 		boolean alcoolica = ValidacoesUtil.validarBoolean(in, "É alcoólica? ");
@@ -57,13 +57,9 @@ public class Bebida extends ProdutoCardapio{
 	
 	@Override
 	public void imprimirDetalhes(boolean completo) {
+		super.imprimirDetalhes(completo);
 		if(completo) {
-			System.out.println("Nome: " + getNome());
-			System.out.println("Descrição: " + getDescricao());
-			System.out.println("Alcoólica: " + (alcoolica ? "Sim" : "Não"));
-			System.out.println("Preço: " + calcularPreco());
-		} else {
-			super.imprimirDetalhes(false);
+			System.out.println("Alcoólica? " + (alcoolica ? "sim" : "não"));
 		}
 	}
 

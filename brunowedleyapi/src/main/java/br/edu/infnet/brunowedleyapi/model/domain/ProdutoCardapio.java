@@ -2,16 +2,28 @@ package br.edu.infnet.brunowedleyapi.model.domain;
 
 public abstract class ProdutoCardapio {
 	
+	private static int contId = 0; 
+	private int id;
 	private String nome;
 	private double precoBase;
 	private String descricao;
 	private Categoria categoria;
 	
 	public ProdutoCardapio(String nome, double precoBase, String descricao, Categoria categoria) {
+		this.id = ++contId;
+		System.out.println("Novo produto criado com ID: " + this.id);
 		this.setNome(nome);
 		this.setPrecoBase(precoBase);
 		this.setDescricao(descricao);
 		this.setCategoria(categoria);
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public abstract double calcularPreco();
@@ -65,13 +77,14 @@ public abstract class ProdutoCardapio {
 		SOBREMESA
 	}
 	
-	public void imprimirDetalhes() {
+	protected void imprimirDetalhes() {
 		System.out.println("Produto: " + getNome());
 		System.out.println("Preço: " + calcularPreco());
 	}
 	
-	public void imprimirDetalhes(boolean completo) {
+	protected void imprimirDetalhes(boolean completo) {
 		if(completo) {
+			System.out.println("ID: " + getId());
 			System.out.println("Produto: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
 //		System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
@@ -90,4 +103,6 @@ public abstract class ProdutoCardapio {
 				"\nNome: " + nome + "\nDescrição: " + descricao +
 				"\nPreco: " + calcularPreco();
 	}
+
+
 }

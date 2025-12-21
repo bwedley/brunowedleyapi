@@ -9,6 +9,7 @@ import br.edu.infnet.brunowedleyapi.model.domain.Bebida;
 import br.edu.infnet.brunowedleyapi.model.domain.Cardapio;
 import br.edu.infnet.brunowedleyapi.model.domain.Prato;
 import br.edu.infnet.brunowedleyapi.model.domain.Sobremesa;
+import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 
 @SpringBootApplication
 public class BrunowedleyapiApplication {
@@ -28,6 +29,8 @@ public class BrunowedleyapiApplication {
 			System.out.println("==== MENU PRINCIPAL ====");
 			System.out.println("1 - Cadastrar produto");
 			System.out.println("2 - Mostrar produtos");
+			System.out.println("3 - Buscar por ID");
+			System.out.println("4 - Buscar por categoria");
 			System.out.println("0 - Sair");
 			System.out.println("Escolha a opção: ");
 			opcao = in.nextInt();
@@ -75,7 +78,14 @@ public class BrunowedleyapiApplication {
 				break;
 				
 			case 2:
-				cardapio.listarProdutosCategoria();
+				cardapio.listarCategorias();
+				break;
+			case 3:
+				int id = ValidacoesUtil.validarIntPositivo(in, "Digite o id desejado: ");
+				cardapio.listarProdutoPorId(id);
+				break;
+			case 4:
+				cardapio.listarProdutosPorCategoria(in);
 				break;
 			case 0:
 				System.out.println("Finalizando aplicação...");

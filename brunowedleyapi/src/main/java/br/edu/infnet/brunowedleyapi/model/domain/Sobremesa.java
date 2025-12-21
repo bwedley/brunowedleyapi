@@ -49,12 +49,12 @@ public class Sobremesa extends ProdutoCardapio{
 		
 		double precoSobremesa;
 		while(true) {
-			precoSobremesa = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
 			try {
-				new Prato().setPrecoBase(precoSobremesa);
+				precoSobremesa = ValidacoesUtil.validarDoublePositivo(in,  "Preço: ");
 				break;
 			} catch (IllegalArgumentException e) {
 				System.out.println("Erro: " + e.getMessage());
+				continue;
 			}
 		}
 		boolean diet = ValidacoesUtil.validarBoolean(in, "É diet? ");
@@ -64,16 +64,11 @@ public class Sobremesa extends ProdutoCardapio{
 		
 	}
 	
-	
+	@Override
 	public void imprimirDetalhes(boolean completo) {
+		super.imprimirDetalhes(completo);
 		if(completo) {
-			System.out.println("Nome: " + getNome());
-			System.out.println("Descrição: " + getDescricao());
-			System.out.println("Diet: " + (diet ? "Sim" : "Não"));
-			System.out.println("Preço: " + calcularPreco());
-				
-		} else {
-			super.imprimirDetalhes(false);
+			System.out.println("Diet? " + (diet ? "sim" : "não"));
 		}
 		
 	}
