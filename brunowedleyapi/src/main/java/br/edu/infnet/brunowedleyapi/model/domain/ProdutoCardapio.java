@@ -7,14 +7,16 @@ public abstract class ProdutoCardapio {
 	private String nome;
 	private double precoBase;
 	private String descricao;
+	private int quantidade;
 	private Categoria categoria;
 	
-	public ProdutoCardapio(String nome, double precoBase, String descricao, Categoria categoria) {
+	public ProdutoCardapio(String nome, double precoBase, String descricao, int quantidade, Categoria categoria) {
 		this.id = ++contId;
 		System.out.println("Novo produto criado com ID: " + this.id);
 		this.setNome(nome);
 		this.setPrecoBase(precoBase);
 		this.setDescricao(descricao);
+		this.setQuantidade(quantidade);
 		this.setCategoria(categoria);
 	}
 	
@@ -87,9 +89,10 @@ public abstract class ProdutoCardapio {
 			System.out.println("ID: " + getId());
 			System.out.println("Produto: " + getNome());
 			System.out.println("Descrição: " + getDescricao());
+			System.out.println("Quantidade em estoque: " + getQuantidade());
 //		System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
 //		System.out.println("Vegano? " + (isVegano() ? "sim" : "não"));
-			System.out.println("Preço: " + calcularPreco());
+			System.out.println("Preço: R$" + String.format("%.2f",calcularPreco()));
 			
 		} else {
 			imprimirDetalhes();
@@ -102,6 +105,14 @@ public abstract class ProdutoCardapio {
 		return "=======" + categoria + "=======" +
 				"\nNome: " + nome + "\nDescrição: " + descricao +
 				"\nPreco: " + calcularPreco();
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 

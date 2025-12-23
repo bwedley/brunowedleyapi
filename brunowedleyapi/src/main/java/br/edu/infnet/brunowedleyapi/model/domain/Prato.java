@@ -7,12 +7,10 @@ import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 public class Prato extends ProdutoCardapio{
 
 	private boolean vegano;
-	private int adicionais;
 	
-	public Prato(String nome, double precoBase, String descricao, boolean vegano, int adicionais, Categoria categoria) {
-		super(nome, precoBase, descricao, categoria);
+	public Prato(String nome, double precoBase, String descricao, boolean vegano, int quantidade, Categoria categoria) {
+		super(nome, precoBase, descricao, quantidade, categoria);
 		this.setVegano(vegano);
-		this.setAdicionais(adicionais);
 		
 	}
 		
@@ -22,12 +20,8 @@ public class Prato extends ProdutoCardapio{
 	
 	@Override
 	public double calcularPreco() {
-		final double acompanhamento = 5.00;
 		double preco = getPrecoBase();
-		if(getAdicionais() > 0) {
-			preco += getAdicionais() * acompanhamento;
-		} 
-	return preco;
+		return preco;
 	}
 		
 	public boolean isVegano() {
@@ -38,19 +32,11 @@ public class Prato extends ProdutoCardapio{
 		this.vegano = vegano;
 	}
 
-	public int getAdicionais() {
-		return adicionais;
-	}
-
-	public void setAdicionais(int adicionais) {
-		this.adicionais = adicionais;
-	}
 	
 	@Override
 	public void imprimirDetalhes(boolean completo) {
 		super.imprimirDetalhes(completo);
 		if(completo) {
-			System.out.println("Acompanhamentos: " + (getAdicionais() > 0 ? getAdicionais() : 0));
 			System.out.println("Vegano? " + (vegano ? "sim" : "não"));
 		}
 	}
@@ -72,7 +58,7 @@ public class Prato extends ProdutoCardapio{
 		}
 		
 		boolean vegano = ValidacoesUtil.validarBoolean(in, "É vegano? ");
-		int adicionais = ValidacoesUtil.validarIntPositivo(in, "Quantidade de adicionais: ");
+		int qtdeEstoque = ValidacoesUtil.validarIntPositivo(in, "Quantidade em estoque: ");
 		
 		System.out.println("Categoria do prato: ");
 		System.out.println("1 - Entrada");
@@ -80,7 +66,7 @@ public class Prato extends ProdutoCardapio{
 		
 		int opcaoCat = ValidacoesUtil.validarOpcao(in, "Opção", 1, 2);
 		Categoria categoria = (opcaoCat == 1) ? Categoria.ENTRADA : Categoria.PRATO_PRINCIPAL;
-		return new Prato(nomePrato, precoPrato, descPrato, vegano, adicionais, categoria);
+		return new Prato(nomePrato, precoPrato, descPrato, vegano, qtdeEstoque, categoria);
 	
 	}
 

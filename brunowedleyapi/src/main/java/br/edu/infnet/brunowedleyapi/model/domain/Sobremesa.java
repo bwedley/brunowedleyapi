@@ -7,8 +7,8 @@ import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 public class Sobremesa extends ProdutoCardapio{
 	private boolean diet;
 
-	public Sobremesa(String nome, double precoBase, String descricao, boolean diet) {
-		super(nome, precoBase, descricao, Categoria.SOBREMESA);
+	public Sobremesa(String nome, double precoBase, String descricao, int quantidade, boolean diet) {
+		super(nome, precoBase, descricao, quantidade, Categoria.SOBREMESA);
 		this.setDiet(diet);
 		
 	}
@@ -57,10 +57,11 @@ public class Sobremesa extends ProdutoCardapio{
 				continue;
 			}
 		}
+		int qtdeEstoque = ValidacoesUtil.validarIntPositivo(in, "Quantidade em estoque: ");
 		boolean diet = ValidacoesUtil.validarBoolean(in, "É diet? ");
 		
 		
-		return new Sobremesa(nomeSobremesa, precoSobremesa, descSobremesa, diet);
+		return new Sobremesa(nomeSobremesa, precoSobremesa, descSobremesa, qtdeEstoque, diet);
 		
 	}
 	

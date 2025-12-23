@@ -22,6 +22,21 @@ public class Cardapio {
 		produtos.add(produto);
 	}
 	
+	public boolean removerProdutoPorId(int id) {
+		return produtos.removeIf(produto -> produto.getId() == id);
+	}
+	
+	//Aqui a opção por remover produto com o método abaixo foi unicamente pra poder recuperar o nome
+	//já que na função anterior o retorno é booleano.
+	public ProdutoCardapio removerProdutoId(int id) {
+		for(int i = 0; i < produtos.size(); i++) {
+			if(produtos.get(i).getId() == id) {
+				return produtos.remove(i);
+			}
+		}
+		return null;
+	}
+	
 	public void listarProdutos() {
 		if(produtos.isEmpty()) {
 			System.out.println("Nenhum produto cadastrado!");

@@ -6,8 +6,8 @@ import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 
 public class Bebida extends ProdutoCardapio{
 	private boolean alcoolica;
-	public Bebida(String nome, double precoBase, String descricao, boolean alcoolica) {
-		super(nome, precoBase, descricao, Categoria.BEBIDA);
+	public Bebida(String nome, double precoBase, String descricao, int quantidade, boolean alcoolica) {
+		super(nome, precoBase, descricao, quantidade, Categoria.BEBIDA);
 		this.setAlcoolica(alcoolica);
 	}
 	
@@ -49,9 +49,11 @@ public class Bebida extends ProdutoCardapio{
 				continue;
 			}
 		}
+		
+		int qtdeEstoque = ValidacoesUtil.validarIntPositivo(in, "Quantidade em estoque: ");
 		boolean alcoolica = ValidacoesUtil.validarBoolean(in, "É alcoólica? ");
 		
-		return new Bebida(nomeBebida, precoBebida, descBebida, alcoolica);
+		return new Bebida(nomeBebida, precoBebida, descBebida, qtdeEstoque, alcoolica);
 	
 	}
 	

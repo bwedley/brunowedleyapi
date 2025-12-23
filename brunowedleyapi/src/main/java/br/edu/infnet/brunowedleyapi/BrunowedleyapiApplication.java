@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.edu.infnet.brunowedleyapi.model.domain.Bebida;
 import br.edu.infnet.brunowedleyapi.model.domain.Cardapio;
 import br.edu.infnet.brunowedleyapi.model.domain.Prato;
+import br.edu.infnet.brunowedleyapi.model.domain.ProdutoCardapio;
 import br.edu.infnet.brunowedleyapi.model.domain.Sobremesa;
 import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 
@@ -31,6 +32,7 @@ public class BrunowedleyapiApplication {
 			System.out.println("2 - Mostrar produtos");
 			System.out.println("3 - Buscar por ID");
 			System.out.println("4 - Buscar por categoria");
+			System.out.println("5 - Remover produto");
 			System.out.println("0 - Sair");
 			System.out.println("Escolha a opção: ");
 			opcao = in.nextInt();
@@ -86,6 +88,16 @@ public class BrunowedleyapiApplication {
 				break;
 			case 4:
 				cardapio.listarProdutosPorCategoria(in);
+				break;
+			case 5:
+				cardapio.listarProdutos();
+				int idR = ValidacoesUtil.validarIntPositivo(in, "Digite o id do produto que você deseja remover: ");
+				ProdutoCardapio removido = cardapio.removerProdutoId(idR);
+				if(removido != null) {
+					System.out.println("Produto: **" +removido.getNome() +"** removido com sucesso!");
+				} else {
+					System.out.println("Produto de id " + idR + "não encontrado");
+				}
 				break;
 			case 0:
 				System.out.println("Finalizando aplicação...");
