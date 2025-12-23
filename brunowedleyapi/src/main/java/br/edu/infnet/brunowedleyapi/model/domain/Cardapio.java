@@ -26,9 +26,32 @@ public class Cardapio {
 		if(impressao == null) {
 			throw new IllegalStateException("Sistema de impressão não configurado");
 		}
+//		for(ProdutoCardapio p : produtos) {
+//			impressao.imprimir(p.toString());
+//		}
+		impressao.imprimir(gerarRelatorioCompleto());
+	}
+	
+	public String gerarRelatorioCompleto() {
+		StringBuilder sb = new StringBuilder();
 		for(ProdutoCardapio p : produtos) {
-			impressao.imprimir(p.toString());
+			sb.append(p.toString())
+			.append("\n=======================\n");
 		}
+		return sb.toString();
+	}
+	
+	public void sobrescreverImpressao() {
+		if(impressao == null) {
+			throw new IllegalStateException("Sistema de impressão não configurado");
+		}
+		impressao.imprimirSobrescrita(gerarRelatorioCompleto());
+	}
+	
+	//A função chama a leitura dentro de outra classe apenas como decisão minha
+	//para centralizar as funções de arquivo dentro do próprio cardápio
+	public void lerCardapio() {
+		impressao.lerRelatorio();
 	}
 	
 	public void adicionarProduto(ProdutoCardapio produto) {

@@ -37,7 +37,9 @@ public class BrunowedleyapiApplication {
 			System.out.println("3 - Buscar por ID");
 			System.out.println("4 - Buscar por categoria");
 			System.out.println("5 - Remover produto");
-			System.out.println("6 - Gerar relatório");
+			System.out.println("6 - Adicionar cadastro atual ao cardápio");
+			System.out.println("7 - Sobrescrever cadastro atual no cardápio");
+			System.out.println("8 - Ler relatório");
 			System.out.println("0 - Sair");
 			System.out.println("Escolha a opção: ");
 			opcao = in.nextInt();
@@ -106,6 +108,12 @@ public class BrunowedleyapiApplication {
 				break;
 			case 6:
 				cardapio.imprimirCardapio();
+				break;
+			case 7:
+				cardapio.sobrescreverImpressao();
+				break;
+			case 8:
+				cardapio.lerCardapio();
 				break;
 			case 0:
 				System.out.println("Finalizando aplicação...");
