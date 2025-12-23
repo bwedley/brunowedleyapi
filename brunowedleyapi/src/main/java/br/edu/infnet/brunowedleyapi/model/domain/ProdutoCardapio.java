@@ -2,7 +2,7 @@ package br.edu.infnet.brunowedleyapi.model.domain;
 
 public abstract class ProdutoCardapio {
 	
-	private static int contId = 0; 
+	private static int contadorId = 0; 
 	private int id;
 	private String nome;
 	private double precoBase;
@@ -11,7 +11,7 @@ public abstract class ProdutoCardapio {
 	private Categoria categoria;
 	
 	public ProdutoCardapio(String nome, double precoBase, String descricao, int quantidade, Categoria categoria) {
-		this.id = ++contId;
+		this.id = ++contadorId;
 		System.out.println("Novo produto criado com ID: " + this.id);
 		this.setNome(nome);
 		this.setPrecoBase(precoBase);
@@ -104,7 +104,7 @@ public abstract class ProdutoCardapio {
 	public String toString() {
 		return "=======" + categoria + "=======" +
 				"\nNome: " + nome + "\nDescrição: " + descricao +
-				"\nPreco: " + calcularPreco();
+				"\nPreco: R$" + String.format("%.2f",calcularPreco());
 	}
 
 	public int getQuantidade() {

@@ -1,0 +1,20 @@
+=======PRATO_PRINCIPAL=======
+Nome: Frango frito
+Descrição: frango com batatas
+Preco: R$55,00
+Vegano: Não
+=======BEBIDA=======
+Nome: Coca-Cola
+Descrição: coca zero lata
+Preco: R$5,00
+Alcoolica: Não
+=======BEBIDA=======
+Nome: Fanta Uva
+Descrição: Fanta Uva 2L
+Preco: R$10,00
+Alcoolica: Não
+=======SOBREMESA=======
+Nome: Mousse de maracujá
+Descrição: mousse
+Preco: R$15,00
+Diet: Não

@@ -64,5 +64,9 @@ public class Bebida extends ProdutoCardapio{
 			System.out.println("Alcoólica? " + (alcoolica ? "sim" : "não"));
 		}
 	}
+	
+	public String toString() {
+		return super.toString() + "\nAlcoolica: " + (alcoolica ? "Sim" : "Não");
+	}
 
 }

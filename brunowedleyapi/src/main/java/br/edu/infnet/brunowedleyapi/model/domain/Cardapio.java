@@ -5,14 +5,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.edu.infnet.brunowedleyapi.interfaces.Impressao;
 import br.edu.infnet.brunowedleyapi.model.domain.ProdutoCardapio.Categoria;
 import br.edu.infnet.brunowedleyapi.utils.ValidacoesUtil;
 
 public class Cardapio {
 	private List<ProdutoCardapio> produtos;
+	private Impressao impressao;
 	
 	public Cardapio() {
 		this.produtos = new ArrayList<>();
+	}
+	
+	public Cardapio(Impressao impressao) {
+		this();
+		this.impressao = impressao;
+	}
+	
+	public void imprimirCardapio() {
+		if(impressao == null) {
+			throw new IllegalStateException("Sistema de impressão não configurado");
+		}
+		for(ProdutoCardapio p : produtos) {
+			impressao.imprimir(p.toString());
+		}
 	}
 	
 	public void adicionarProduto(ProdutoCardapio produto) {
